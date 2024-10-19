@@ -1,0 +1,10 @@
+apiVersion: v1
+data:
+  JAVA_OPTS: -Xms3g -Xmx3g -Xmn2g -XX:MetaspaceSize=256m -XX:-OmitStackTraceInFastThrow
+    -XX:+HeapDumpOnOutOfMemoryError
+  TZ: Asia/Shanghai
+  bootstrap.properties: server.port=8080
+kind: ConfigMap
+metadata:
+  name: {appname}
+  namespace: {namespace}
