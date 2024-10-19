@@ -1,0 +1,112 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {appname}
+    project-code: {project}
+  name: {appname}
+  namespace: {namespace}
+spec:
+  replicas: {num}
+  selector:
+    matchLabels:
+      app: {appname}
+      project-code: {project}
+  strategy:
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+    type: RollingUpdate
+  template:
+    metadata:
+      labels:
+        app: {appname}
+        project-code: {project}
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+            - podAffinityTerm:
+                labelSelector:
+                  matchExpressions:
+                    - key: app
+                      operator: In
+                      values:
+                        - {appname}
+                namespaces:
+                  - {namespace}
+                topologyKey: kubernetes.io/hostname
+              weight: 100
+      containers:
+        - env:
+            - name: POD_NAME
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: metadata.name
+            - name: POD_IP
+              valueFrom:
+                fieldRef:
+                  apiVersion: v1
+                  fieldPath: status.podIP
+            - name: JAVA_OPTS
+              valueFrom:
+                configMapKeyRef:
+                  key: JAVA_OPTS
+                  name: {appname}
+            - name: TZ
+              valueFrom:
+                configMapKeyRef:
+                  key: TZ
+                  name: {appname}
+            - name: PORT
+              valueFrom:
+                configMapKeyRef:
+                  key: PORT
+                  name: {appname}
+
+          image: {image}
+          imagePullPolicy: IfNotPresent
+          name: {appname}
+          ports:
+            - containerPort: {PORT}
+              name: http
+              protocol: TCP
+          lifecycle:
+            preStop:
+              exec:
+                command:
+                  - '/bin/sh,-c,/home/admin/stop-java.sh'
+          #livenessProbe:
+          #  failureThreshold: 3
+          #  httpGet:
+          #    path: /
+          #    port: {PORT}
+          #    scheme: HTTP
+          #  initialDelaySeconds: 30
+          #  periodSeconds: 30
+          #  successThreshold: 1
+          #  timeoutSeconds: 30
+          #name: {appname}
+          #readinessProbe:
+          #  failureThreshold: 3
+          #  httpGet:
+          #    path: /
+          #    port: {PORT}
+          #    scheme: HTTP
+          #  initialDelaySeconds: 30
+          #  periodSeconds: 30
+          #  successThreshold: 1
+          #  timeoutSeconds: 30
+          volumeMounts:
+            - mountPath: /home/config/bootstrap.properties
+              name: {appname}
+              subPath: bootstrap.properties
+          workingDir: /home
+      imagePullSecrets:
+        - name: acr-registry
+      volumes:
+        - configMap:
+            defaultMode: 420
+            name: {appname}
+          name: {appname}
