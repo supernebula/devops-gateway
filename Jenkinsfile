@@ -5,7 +5,7 @@ pipeline {
         // 拉取代码
         stage('Git Clone') {
             steps {
-                git branch: '$Branch', credentialsId: 'gitlab-key', url: '$GitUrl'
+                git branch: '$Branch', credentialsId: 'gitlab-token', url: '$GitUrl'
             }
         }
         //获取配置文件
