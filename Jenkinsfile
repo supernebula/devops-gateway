@@ -5,19 +5,19 @@ pipeline {
         // 拉取代码
         stage('Git Clone') {
             steps {
-                git branch: '$Branch', credentialsId: 'gitlab-20240227', url: '$GitUrl'
+                git branch: '$Branch', credentialsId: 'gitlab-key', url: '$GitUrl'
             }
         }
         //获取配置文件
         stage('Pull Config'){
             steps{
-                sh "wget http://192.168.0.20/devops/devops-socketiot/raw/master/Dockerfile"
-                sh "wget http://192.168.0.20/devops/devops-socketiot/raw/master/deployment.yaml"
-                sh "wget http://192.168.0.20/devops/devops-socketiot/raw/master/entrypoint.sh"
-                sh "wget http://192.168.0.20/devops/devops-socketiot/raw/master/settings.xml"
-                sh "wget http://192.168.0.20/devops/devops-socketiot/raw/master/stop-java.sh"
-                sh "wget http://192.168.0.20/devops/devops-socketiot/raw/master/svc.yaml"
-                sh "wget http://192.168.0.20/devops/devops-socketiot/raw/master/configmap.yaml"
+                sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/Dockerfile"
+                sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/deployment.yaml"
+                sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/entrypoint.sh"
+                sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/settings.xml"
+                sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/stop-java.sh"
+                sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/svc.yaml"
+                sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/configmap.yaml"
                 sh 'sed -i "s#{appname}#${appname}#g" Dockerfile'
                 sh 'sed -i "s#{Pserver}#${Pserver}#g" Dockerfile'
             }
