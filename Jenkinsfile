@@ -37,15 +37,15 @@ pipeline {
         stage('Image Build And Publish'){
             steps{
                 sh "docker login -u jenkins-test-user1 -p Test321654 ${HarborAddr}"
-                sh 'pwd;ls;docker build -t ${HarborAddr}/${project}/${appname}:${tag} .'
-                sh 'docker push ${HarborAddr}/${project}/${appname}:${tag}'
+                sh 'pwd;ls;docker build -t ${HarborAddr}/${project}/${appname}:${BUILD_NUMBER} .'
+                sh 'docker push ${HarborAddr}/${project}/${appname}:${BUILD_NUMBER}'
             }
         }
         //修改yaml文件相关参数
         stage('Set Yaml Param') {
             steps {
                 sh 'sed -i "s#{num}#${num}#g" deployment.yaml'
-                sh 'sed -i "s#{image}#${HarborAddr}/${project}/${appname}:${tag}#g" deployment.yaml'
+                sh 'sed -i "s#{image}#${HarborAddr}/${project}/${appname}:${BUILD_NUMBER}#g" deployment.yaml'
                 sh 'sed -i "s#{appname}#${appname}#g" deployment.yaml'
                 sh 'sed -i "s#{appname}#${appname}#g" svc.yaml'
                 sh 'sed -i "s#{appname}#${appname}#g" configmap.yaml'
