@@ -15,7 +15,6 @@ pipeline {
                 sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/Dockerfile"
                 sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/deployment.yaml"
                 sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/entrypoint.sh"
-                sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/settings.xml"
                 sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/stop-java.sh"
                 sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/svc.yaml"
                 sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/configmap.yaml"
