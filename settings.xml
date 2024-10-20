@@ -52,7 +52,6 @@ under the License.
    | Default: ${user.home}/.m2/repository
   <localRepository>/path/to/local/repo</localRepository>
   -->
-
   <!-- interactiveMode
    | This will determine whether maven prompts you when it needs input. If set to false,
    | maven will use a sensible default value, perhaps based on some other setting, for
@@ -158,9 +157,9 @@ under the License.
      -->
 	<mirror>
 		<id>alimaven</id>
-        <name>nexus</name>
-        <url>http://maven.aliyun.com/nexus/content/groups/public/</url>                
-        <mirrorOf>central</mirrorOf>
+		<name>aliyun maven</name>
+		<url>http://maven.aliyun.com/nexus/content/groups/public/</url>
+		<mirrorOf>central</mirrorOf>
 	</mirror>
   </mirrors>
 
@@ -249,19 +248,9 @@ under the License.
         <tomcatPath>/path/to/tomcat/instance</tomcatPath>
       </properties>
     </profile>
-    <profile>
-        <id>sonar</id>
-        <activation>
-            <activeByDefault>true</activeByDefault>
-        </activation>
-        <properties>
-            <sonar.login>admin</sonar.login>
-            <sonar.password>changchong</sonar.password>
-            <sonar.host.url>http://192.168.0.212:9000</sonar.host.url>
-        </properties>
-    </profile>
     -->
   </profiles>
+
   <!-- activeProfiles
    | List of profiles that are active for all builds.
    |
