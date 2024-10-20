@@ -11,6 +11,7 @@ pipeline {
         //获取配置文件
         stage('Pull Config'){
             steps{
+                sh "pwd"
                 sh "rm -rf *"
                 sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/Dockerfile"
                 sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/deployment.yaml"
