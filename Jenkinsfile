@@ -12,7 +12,8 @@ pipeline {
         stage('Pull Config'){
             steps{
                 sh "pwd"
-                sh "rm -rf Dockerfile deployment.yaml entrypoint.sh stop-java.sh svc.yaml configmap.yaml"
+                sh "rm -rf Dockerfile deployment.yaml entrypoint.sh stop-java.sh svc.yaml configmap.yaml settings.xml"
+                sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/settings.xml"
                 sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/Dockerfile"
                 sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/deployment.yaml"
                 sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/entrypoint.sh"
@@ -26,7 +27,7 @@ pipeline {
         //编译构建
         stage('Maven Compile Build'){
             steps{
-                sh "/usr/local/maven/bin/mvn clean install -U -f $WORKSPACE/$PServer/$appname/pom.xml -Dmaven.test.skip=true "
+                sh "/usr/local/maven/bin/mvn clean install -U --settings settings.xml -f $WORKSPACE/$PServer/$appname/pom.xml -Dmaven.test.skip=true "
             }
         }
         // 运行容器镜像构建和推送命令
