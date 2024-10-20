@@ -26,7 +26,7 @@ pipeline {
         //编译构建
         stage('Maven Compile Build'){
             steps{
-                sh "/usr/local/maven/bin/mvn clean install -U --settings settings.xml -f $WORKSPACE/$PServer/$appname/pom.xml -Dmaven.test.skip=true "
+                sh "/usr/local/maven/bin/mvn clean install -U -f $WORKSPACE/$PServer/$appname/pom.xml -Dmaven.test.skip=true "
             }
         }
         // 运行容器镜像构建和推送命令
