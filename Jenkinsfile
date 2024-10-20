@@ -26,6 +26,9 @@ pipeline {
          }
         //编译构建
         stage('Maven Compile Build'){
+            tools {
+                jdk "JDK17"
+            }
             steps{
                 sh "/usr/local/maven/bin/mvn clean install -U --settings settings.xml -f $WORKSPACE/$PServer/$appname/pom.xml -Dmaven.test.skip=true -e -X"
             }
