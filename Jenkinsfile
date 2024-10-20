@@ -69,7 +69,7 @@ pipeline {
                 sh '''
                 pj_resu=`kubectl get cm  -n ${namespace} |grep ${appname}|wc -l`
                 if [ $pj_resu -eq 0 ];then
-                    kubectl apply -f  ${appname}.yaml -n ${namespace}
+                    kubectl apply -f configmap.yaml -n ${namespace}
                 fi
                 pj_svc=`kubectl get svc -n ${namespace} |grep ${appname}|wc -l`
                 if [ $pj_svc -eq 0 ];then
