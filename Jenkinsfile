@@ -1,6 +1,7 @@
 pipeline {
      // 定义本次构建使用哪个标签的构建环境
     agent any
+    def TAG = v + $BUILD_NUMBER
     stages {
         // 拉取代码
         stage('Git Clone') {
@@ -11,6 +12,7 @@ pipeline {
         //获取配置文件
         stage('Pull Config'){
             steps{
+                sh "cat ${BUILD_NUMBER}"
                 sh "pwd"
                 sh "rm -rf Dockerfile deployment.yaml entrypoint.sh stop-java.sh svc.yaml configmap.yaml settings.xml"
                 sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/settings.xml"
