@@ -99,9 +99,9 @@ spec:
           #  successThreshold: 1
           #  timeoutSeconds: 30
           volumeMounts:
-            - mountPath: /home/config/bootstrap.properties
+            - mountPath: /home/config/application.yml
               name: {appname}
-              subPath: bootstrap.properties
+              subPath: application.yml
           workingDir: /home
       imagePullSecrets:
         - name: acr-registry
