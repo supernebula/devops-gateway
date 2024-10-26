@@ -12,7 +12,7 @@ pipeline {
         stage('Pull Config'){
             steps{
                 sh "pwd"
-                sh "rm -rf Dockerfile deployment.yaml entrypoint.sh stop-java.sh svc.yaml configmap.yaml settings.xml"
+                sh "rm -rf Dockerfile deployment.yaml entrypoint.sh stop-java.sh svc.yaml configmap.yaml settings.xml ingress.yaml"
                 sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/settings.xml"
                 sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/Dockerfile"
                 sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/deployment.yaml"
