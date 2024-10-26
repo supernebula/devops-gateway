@@ -20,6 +20,7 @@ pipeline {
                 sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/stop-java.sh"
                 sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/svc.yaml"
                 sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/configmap.yaml"
+                sh "wget http://192.168.2.40:9080/kubernetes-group/devops-gateway/-/raw/main/ingress.yaml"
                 sh 'sed -i "s#{appname}#${appname}#g" Dockerfile'
                 sh 'sed -i "s#{Pserver}#${Pserver}#g" Dockerfile'
             }
@@ -49,18 +50,24 @@ pipeline {
                 sh 'sed -i "s#{appname}#${appname}#g" deployment.yaml'
                 sh 'sed -i "s#{appname}#${appname}#g" svc.yaml'
                 sh 'sed -i "s#{appname}#${appname}#g" configmap.yaml'
+                sh 'sed -i "s#{appname}#${appname}#g" ingress.yaml'
                 sh 'sed -i "s#{project}#${project}#g" deployment.yaml'
                 sh 'sed -i "s#{project}#${project}#g" svc.yaml'
                 sh 'sed -i "s#{project}#${project}#g" configmap.yaml'
+                sh 'sed -i "s#{project}#${project}#g" ingress.yaml'
                 sh 'sed -i "s#{namespace}#${namespace}#g" deployment.yaml'
                 sh 'sed -i "s#{namespace}#${namespace}#g" svc.yaml'
                 sh 'sed -i "s#{namespace}#${namespace}#g" configmap.yaml'
+                sh 'sed -i "s#{namespace}#${namespace}#g" ingress.yaml'
                 sh 'sed -i "s#{PORT}#${PORT}#g" deployment.yaml'
+                sh 'sed -i "s#{PORT}#${PORT}#g" ingress.yaml'
                 sh 'sed -i "s#{SOPORT}#${SOPORT}#g" deployment.yaml'
                 sh 'sed -i "s#{PORT}#${PORT}#g" svc.yaml'
+                sh 'sed -i "s#{domainname}#${domainname}#g" ingress.yaml'
                 sh 'cat deployment.yaml'
                 sh 'cat svc.yaml'
                 sh 'cat configmap.yaml'
+                sh 'cat ingress.yaml'
             }
         }
         // 发布
@@ -77,6 +84,8 @@ pipeline {
                 fi
                 '''
                 sh 'kubectl apply -f deployment.yaml -n ${namespace}'
+                //一般情况，仅网关使用ingress
+                sh 'kubectl apply -f ingress.yaml -n ${namespace}'
               }
 
         }
