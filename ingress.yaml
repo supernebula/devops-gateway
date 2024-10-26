@@ -1,0 +1,23 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: evol-cloud-gateway-ing
+  namespace: spring-evol-h
+  annotations:
+    nginx.ingress.kubernetes.io/backend-protocol: http
+    nginx.ingress.kubernetes.io/ssl-redirect: "false"
+    nginx.ingress.kubernetes.io/enable-access-log: "true"
+
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: apiv2.evolcloud.top
+      http:
+        paths:
+        - path: /
+          pathType: Prefix
+          backend:
+             service:
+                 name: evol-cloud-gateway-svc
+                 port:
+                     number: 9000
