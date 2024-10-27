@@ -2,7 +2,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   labels:
-    app: {appname}
+    app: {appname}-ingress
     project-code: {project}
   name: {appname}
   namespace: {namespace}
