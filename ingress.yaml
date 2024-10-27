@@ -23,4 +23,4 @@ spec:
              service:
                  name: {appname}
                  port:
-                     number: {PORT}
+                     number: 80
