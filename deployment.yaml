@@ -42,7 +42,7 @@ spec:
         image: 192.168.2.40/base-image/skywalking-java-agent:8.16.0-java17
         imagePullPolicy: IfNotPresent
         command: [ "/bin/sh" ]
-        args: [ "-c", "cp -R /skywalking/agent /agent/" ]
+        args: [ "-c", "cp -R /skywalking/agent /home/skywalking-agent/" ]
         volumeMounts:
           - mountPath: /home/skywalking-agent
             name: skywalking-agent-share
