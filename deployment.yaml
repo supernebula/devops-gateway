@@ -37,8 +37,19 @@ spec:
                   - {namespace}
                 topologyKey: kubernetes.io/hostname
               weight: 100
+      initContainers:
+        - name: skywalking-agent-c
+          image: 192.168.2.40/base-image/skywalking-java-agent:8.16.0-java17
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: skywalking-agent
+              mountPath: /agent
+          command: [ "/bin/sh" ]
+          args: [ "-c", "cp -R /skywalking/agent /agent/" ]   
       containers:
         - env:
+            - name: JAVA_TOOL_OPTIONS
+              value: "-javaagent:/skywalking/agent/skywalking-agent.jar"
             - name: POD_NAME
               valueFrom:
                 fieldRef:
@@ -99,6 +110,8 @@ spec:
           #  successThreshold: 1
           #  timeoutSeconds: 30
           volumeMounts:
+            - mountPath: /skywalking
+              name: skywalking-agent
             - mountPath: /home/config/application.yml
               name: {appname}
               subPath: application.yml
