@@ -75,6 +75,10 @@ spec:
                   name: {appname}
             - name: JAVA_TOOL_OPTIONS
               value: "-javaagent:/home/skywalking/agent/skywalking-agent.jar"
+            - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
+              value: "127.0.0.1:11800"
+            - name: SW_AGENT_NAME
+              value: {appname}
 
           image: {image}
           imagePullPolicy: IfNotPresent
