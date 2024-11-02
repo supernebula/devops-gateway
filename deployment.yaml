@@ -37,15 +37,15 @@ spec:
                   - {namespace}
                 topologyKey: kubernetes.io/hostname
               weight: 100
-      initContainers: # 初始化容器挂载skywalking agent
-      - name: skywalking-agent
-        image: 192.168.2.40/base-image/skywalking-java-agent:8.16.0-java17
-        imagePullPolicy: IfNotPresent
-        command: [ "/bin/sh" ]
-        args: [ "-c", "cp -R /skywalking/agent /agent/" ]
-        volumeMounts:
-          - mountPath: /home/skywalking-agent
-            name: skywalking-agent-share
+      #initContainers: # 初始化容器挂载skywalking agent
+      #- name: skywalking-agent
+      #  image: 192.168.2.40/base-image/skywalking-java-agent:8.16.0-java17
+      #  imagePullPolicy: IfNotPresent
+      #  command: [ "/bin/sh" ]
+      #  args: [ "-c", "cp -R /skywalking/agent /agent/" ]
+      #  volumeMounts:
+      #    - mountPath: /home/skywalking-agent
+      #      name: skywalking-agent-share
       containers:
         - env:
             - name: POD_NAME
@@ -108,8 +108,8 @@ spec:
           #  successThreshold: 1
           #  timeoutSeconds: 30
           volumeMounts:
-            - mountPath: /home/skywalking-agent
-              name: skywalking-agent-share
+            #- mountPath: /home/skywalking-agent
+            #  name: skywalking-agent-share
             - mountPath: /home/config/application.yml
               name: {appname}
               subPath: application.yml
@@ -121,5 +121,5 @@ spec:
             defaultMode: 420
             name: {appname}
           name: {appname}
-        - name: skywalking-agent-share
-          emptyDir: {}
+        #- name: skywalking-agent-share
+        #  emptyDir: {}
