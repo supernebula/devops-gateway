@@ -63,8 +63,6 @@ spec:
                 configMapKeyRef:
                   key: JAVA_OPTS
                   name: {appname}
-            - name: JAVA_TOOL_OPTIONS
-              value: "-javaagent:/skywalking/agent/skywalking-agent.jar"
             - name: TZ
               valueFrom:
                 configMapKeyRef:
