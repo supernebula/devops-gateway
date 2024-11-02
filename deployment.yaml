@@ -73,6 +73,8 @@ spec:
                 configMapKeyRef:
                   key: PORT
                   name: {appname}
+            - name: JAVA_TOOL_OPTIONS
+              value: "-javaagent:/home/skywalking/agent/skywalking-agent.jar"
 
           image: {image}
           imagePullPolicy: IfNotPresent
