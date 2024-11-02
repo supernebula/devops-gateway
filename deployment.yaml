@@ -37,18 +37,6 @@ spec:
                   - {namespace}
                 topologyKey: kubernetes.io/hostname
               weight: 100
-      volumes:  #声明共享存储
-        - name: skywalking-agent
-          emptyDir: {}
-      initContainers:
-        - name: agent-container
-          image: 192.168.2.40/base-image/skywalking-java-agent:8.16.0-java17
-          imagePullPolicy: Always
-          volumeMounts:
-            - name: skywalking-agent
-              mountPath: /agent
-          command: [ "/bin/sh" ]
-          args: [ "-c", "cp -R /skywalking/agent /agent/" ]   
       containers:
         - env:
             - name: POD_NAME
