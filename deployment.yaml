@@ -42,9 +42,9 @@ spec:
         image: 192.168.2.40/base-image/skywalking-java-agent:8.16.0-java17
         imagePullPolicy: IfNotPresent
         command: [ "/bin/sh" ]
-        args: [ "-c", "cp -R /skywalking/agent /home/skywalking-agent/" ]
+        args: [ "-c", "cp -R /skywalking/agent /home/skywalking/" ]
         volumeMounts:
-          - mountPath: /home/skywalking-agent
+          - mountPath: /home/skywalking
             name: skywalking-agent-share
       containers:
         - env:
@@ -108,7 +108,7 @@ spec:
           #  successThreshold: 1
           #  timeoutSeconds: 30
           volumeMounts:
-            - mountPath: /home/skywalking-agent
+            - mountPath: /home/skywalking
               name: skywalking-agent-share
             - mountPath: /home/config/application.yml
               name: {appname}
