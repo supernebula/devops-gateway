@@ -75,10 +75,10 @@ spec:
                   name: {appname}
             - name: JAVA_TOOL_OPTIONS
               value: "-javaagent:/home/skywalking/agent/skywalking-agent.jar"
-            - name: SW_AGENT_NAMESPACE
-              value: skywalking
+            #- name: SW_AGENT_NAMESPACE
+            #  value: skywalking
             - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
-              value: "skywalking-helm-oap:11800"
+              value: "skywalking-oap.skywalking.svc.cluster.local:11800"
             - name: SW_AGENT_NAME
               value: {appname}
 
