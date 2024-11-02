@@ -37,7 +37,7 @@ spec:
                   - {namespace}
                 topologyKey: kubernetes.io/hostname
               weight: 100
-      volumes:  #生命共享存储
+      volumes:  #声明共享存储
         - name: skywalking-agent
           emptyDir: {}
       initContainers:
@@ -51,8 +51,6 @@ spec:
           args: [ "-c", "cp -R /skywalking/agent /agent/" ]   
       containers:
         - env:
-            - name: JAVA_TOOL_OPTIONS
-              value: "-javaagent:/skywalking/agent/skywalking-agent.jar"
             - name: POD_NAME
               valueFrom:
                 fieldRef:
@@ -113,8 +111,6 @@ spec:
           #  successThreshold: 1
           #  timeoutSeconds: 30
           volumeMounts:
-            - mountPath: /skywalking
-              name: skywalking-agent
             - mountPath: /home/config/application.yml
               name: {appname}
               subPath: application.yml
