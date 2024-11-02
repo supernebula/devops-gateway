@@ -75,6 +75,8 @@ spec:
                   name: {appname}
             - name: JAVA_TOOL_OPTIONS
               value: "-javaagent:/home/skywalking/agent/skywalking-agent.jar"
+            - name: SW_AGENT_NAMESPACE
+              value: skywalking
             - name: SW_AGENT_COLLECTOR_BACKEND_SERVICES
               value: "skywalking-skywalking-helm-oap:12800"
             - name: SW_AGENT_NAME
