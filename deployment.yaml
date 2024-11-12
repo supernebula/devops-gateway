@@ -123,7 +123,7 @@ spec:
               subPath: application.yml
           workingDir: /home
       imagePullSecrets:
-        - name: acr-registry
+        - name: harbor-registry
       volumes:
         - configMap:
             defaultMode: 420
