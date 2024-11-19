@@ -40,6 +40,7 @@ pipeline {
                 sh "docker login -u jenkins-test-user1 -p Test321654 ${HarborAddr}"
                 sh 'pwd;ls;docker build -t ${HarborAddr}/${project}/${appname}:v${BUILD_NUMBER} .'
                 sh 'docker push ${HarborAddr}/${project}/${appname}:v${BUILD_NUMBER}'
+                sh 'docker rmi ${HarborAddr}/${project}/${appname}:v${BUILD_NUMBER}'
             }
         }
         //修改yaml文件相关参数
