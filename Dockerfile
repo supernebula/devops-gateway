@@ -1,4 +1,4 @@
-FROM 192.168.2.40/base-image/openjdk:17-jdk-slim
+FROM 192.168.2.40/base-image/openjdk:17
 COPY entrypoint.sh /home/entrypoint.sh
 COPY stop-java.sh /home/stop-java.sh
 RUN chmod +x /home/*.sh
